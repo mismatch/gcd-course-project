@@ -21,9 +21,7 @@ mergeDataSets <- function() {
                                      gsub("Jerk", "JerkSignal",
                                      gsub("Gyro", "Gyroscope",
                                      gsub("Mag", "Magnitude",
-                                     gsub("Acc", "Acceleration",
-                                     gsub("^f", "FourierTransform",
-                                     gsub("^t","Time", featuresToKeepNames)))))))))))), fixed=TRUE)
+                                     gsub("Acc", "Acceleration", featuresToKeepNames)))))))))), fixed = T)
     
     activityLabels <- read.table("activity_labels.txt")
     names(activityLabels) <- c("activityId", "activity")
@@ -32,17 +30,17 @@ mergeDataSets <- function() {
         dir <- paste(type, "/", sep = "")
         fNameSuffix <- paste("_", type, ".txt", sep = "")
         
-        x <- read.table(paste(dir, "X", fNameSuffix, sep=""))
+        x <- read.table(paste(dir, "X", fNameSuffix, sep = ""))
         names(x) <- allFeaturesNames
         x <- x[, featuresToKeepNames]
         names(x) <- descriptiveFeaturesNames
-        y <- read.table(paste(dir, "y", fNameSuffix, sep=""))
+        y <- read.table(paste(dir, "y", fNameSuffix, sep = ""))
         names(y)[1] <- "activityId"
-        subj <- read.table(paste(dir, "subject", fNameSuffix, sep=""))
+        subj <- read.table(paste(dir, "subject", fNameSuffix, sep = ""))
         names(subj)[1] <- "subject"
         
         res <- cbind(subj, y)
-        res <- merge(res, activityLabels, by="activityId")
+        res <- merge(res, activityLabels, by = "activityId")
         cbind(res, x)
     }
 
@@ -54,7 +52,9 @@ getTidyData <- function(dataset) {
     activity <- unique(dataset[, c(1, 3)])
     tidyData <- aggregate(ds[, 3:ncol(ds)], 
                           by = list(activityId = ds$activityId, subject = ds$subject), mean)
-    merge(tidyData, activity, by = 'activityId');
+    tidyData <- merge(tidyData, activity, by = 'activityId')
+    nc <- ncol(tidyData)
+    data.frame(c(tidyData[nc], tidyData[2:(nc - 1)]))
 }
 
 
