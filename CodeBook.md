@@ -22,8 +22,8 @@ The resulting data set is combination of data from following files:
 * test/subject_test.txt
 
 Label for activities are taken from activity_labels.txt and column names are from features.txt. Transformations were
-applied to make column names more readable. So, tBodyAcc-mean()-X has become tBodyAccelerationMeanByX, tBodyGyro-std()-Z
- - tBodyGyroscopeStdDevByZ and so on.
+applied to make column names more readable. So, tBodyAcc-mean()-X has become tBodyAccelerationMeanByX, 
+tBodyGyro-std()-Z - tBodyGyroscopeStdDevByZ and so on.
 
 As per assignment, only columns which contain the measurements on the mean and standard deviation for each measurement
 were preserverd.
